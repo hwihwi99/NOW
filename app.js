@@ -3,9 +3,14 @@ var app = express()
 var path = require('path')
 const bodyParser = require('body-parser')
 var mysql = require('mysql')
-// mysql.createConnection(
-    
-// )
+var connection = mysql.createConnection({
+    host : 'localhost',
+    user : 'root',
+    port : '3306',
+    password : '1234',
+    database : 'now'
+})
+connection.connect();
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
@@ -29,4 +34,10 @@ app.get('/join',(req,res)=>{
 
 app.post('/join',(req,res)=>{
     var email = req.body.join_email
+    var pw = req.body.join_pw
+    var pwcheck = req.body.join_pwcheck
+    var nickname = req.body.join_nickname
+    var name = req.body.join_nickname
+
+    connection.query('')
 })
