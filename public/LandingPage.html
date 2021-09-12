@@ -5,15 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOW</title>
+    <link rel="stylesheet" href="./css/LandingPage.css">
 </head>
 <body>
-    <img src="../public/img/now_logo.png" alt="logo">
-    <h1>안녕하세요. NOW입니다.</h1>
-    <form action="/join" method="get">
-        <input type="submit" value="회원가입">
-    </form>
-    <form action="/login" method="get">
-        <input type="submit" value="로그인">
-    </form>
+    <div class="LandingPage">
+        <img src="../img/now_logo.png" alt="logo">
+        <br>
+        <br>
+        <p class="LandingPage_title">what is <b>NOW</b>??</p>
+        <br>
+        <div class="LandingPage_list">
+            <li><b>닉네임</b>으로 활동하는 커뮤니티입니다.</li>
+            <li><b>주제별로</b> 게시판이 나뉘어 있습니다</li>
+            <li><b>원하는 주제</b>의 게시판을 <b>직접</b> 만들어보세요.</li>
+            <li><b>게시글</b>은 얼마든지 작성해도 좋습니다.</li>
+            <li>홈 화면에는 <b>즐겨찾는 게시판</b>들을 볼 수 있습니다.</li>
+            <li><b>하고 싶은 이야기</b>들을 마음껏 써보세요! </li>
+            <li><b>궁금한 것</b>은 편하게 물어보세요!</li>
+        </div>
+        <br>
+        <p class="LaningPage_text"><b>Now!!</b> Are you Ready??</p>
+
+        <form action="/join" method="get">
+            <input class="LandingPage_btn" type="submit" value="회원가입">
+        </form>
+        <form action="/login" method="get">
+            <input class="LandingPage_btn" type="submit" value="로그인">
+        </form>
+    </div>
+    
 </body>
 </html>

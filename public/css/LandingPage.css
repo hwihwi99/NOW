@@ -1,0 +1,68 @@
+*{
+    margin: 0;
+
+}
+
+.LandingPage {
+    top: 0px;
+    left: 50%;
+    width: 400px;
+    transform: translateX(-50%);
+    position: relative;
+    height: auto;
+}
+
+.LandingPage>img{
+    margin-top: 5px;
+    width: 400px;
+}
+
+.LandingPage_title > b{
+    font-size: 35px;
+    font-weight: 900;
+    color: #07632A;
+}
+
+.LandingPage_title{
+    margin-left: 10px;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.LandingPage_list{
+    list-style: none;
+    line-height: 1.87;
+    margin-left: 10px;
+}
+
+.LandingPage_list >li> b{
+    color:#045220;
+}
+
+.LaningPage_text{
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+
+.LaningPage_text > b{
+    color: #045220;
+}
+
+.LandingPage_btn{
+    background-color:#045220 ;
+    border-radius: 8px;
+    border: none;
+    width: 200px;
+    height: 50px;
+    margin-bottom: 10px;
+    margin-left: 100px;
+    color: #efefef;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.LandingPage_btn:hover{
+    opacity: 0.87;
+}
