@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+
+}
+.login {
+    top: 0px;
+    left: 50%;
+    width: 400px;
+    transform: translateX(-50%);
+    position: relative;
+    height: auto;
+
+}
+.login_top{
+    background-color: yellowgreen;
+    display: flex;
+    height: 45px;
+}
+
+.login_top > a > img{
+    width: 100px;
+    margin-left: 50px;
+}
+
+.login_top > p{
+    margin-top: 25px;
+    margin-left: 40px;
+}

@@ -5,23 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>join</title>
+    <link rel="stylesheet" href="./css/join.css">
 </head>
 <body>
-    <h1>
-        회원가입
-    </h1>
-    <form action="/join" method="POST">       
-        이메일 <input type="email" name="join_email" id="join_email">
-        <br>
-        비밀번호 <input type="password" name="join_pw" id="join_pw">
-        <br>
-        비밀번호 확인 <input type="password" name="join_pwcheck" id="join_pwcheck">
-        <br>
-        닉네임 <input type="text" name="join_nickname" id="join_nickname">
-        <br>
-        사용자 이름 <input type="text" name="join_name" id="join_name">
-        <br>
-        <input type="submit" value="회원가입">
-    </form>
+    <div class="join">
+        <img src="../img/now_logo.png" alt="logo">
+        <h1>
+            회원가입
+        </h1>
+        <form action="/join" method="POST">       
+            이메일 <input type="email" name="join_email" id="join_email">
+            <br>
+            비밀번호 <input type="password" name="join_pw" id="join_pw">
+            <br>
+            비밀번호 확인 <input type="password" name="join_pwcheck" id="join_pwcheck">
+            <br>
+            닉네임 <input type="text" name="join_nickname" id="join_nickname">
+            <br>
+            사용자 이름 <input type="text" name="join_name" id="join_name">
+            <br>
+            <input type="submit" value="회원가입">
+        </form>
+    </div>
 </body>
 </html>

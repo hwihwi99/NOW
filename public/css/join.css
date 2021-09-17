@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+
+}
+.join {
+    top: 0px;
+    left: 50%;
+    width: 400px;
+    transform: translateX(-50%);
+    position: relative;
+    height: auto;
+}

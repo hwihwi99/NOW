@@ -13,10 +13,12 @@ var connection = mysql.createConnection({
 })
 connection.connect();
 
+var nickname; 
+
 app.use(express.static('public'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}));
-
+app.set('view engine','ejs');
 app.listen(3000,function(){
     console.log('server start')
 })
@@ -30,7 +32,7 @@ app.get('/login',(req,res)=>{
 })
 
 app.post('/login',(req,res)=>{
-    var nickname = req.body.login_nickname
+    nickname = req.body.login_nickname
     var inputpw = req.body.login_pw
     var query = connection.query('select * from now_user where nickname = ?',[nickname],(error,row)=>{
         if(error){
@@ -41,7 +43,7 @@ app.post('/login',(req,res)=>{
             var pwcheck = crypto.createHash("sha512").update(inputpw+row[0].salt).digest("hex")
         
             if(pwcheck == row[0].pw){
-                res.send("<script>alert('로그인이 완료되었습니다.');location.href='/home';</script>")
+                res.redirect('/home')
             }else{
                 // 비밀번호가 틀리다면
                 res.send("<script>alert('비밀번호를 다시 확인해주세요');location.href='/login';</script>")
@@ -52,6 +54,10 @@ app.post('/login',(req,res)=>{
             res.send("<script>alert('등록된 아이디가 없습니다.');location.href='/login';</script>")
         }
     })
+})
+
+app.get('/home',(req,res)=>{
+    res.render('home.ejs',{nickname:nickname})
 })
 
 app.get('/join',(req,res)=>{
@@ -95,7 +101,10 @@ app.post('/join',(req,res)=>{
     })    
 })
 
-app.get('/home',(req,res)=>{
-    console.log('홈화면 입니다.')
-    res.send("<h1>가입 완료입니다ㅎㅎ</h1>")
+app.get('/board',(req,res)=>{
+    res.render('board.ejs',{nickname:nickname})
 })
+
+// app.post('/board/search',(req,res)=>{
+
+// })
