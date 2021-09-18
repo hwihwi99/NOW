@@ -102,9 +102,27 @@ app.post('/join',(req,res)=>{
 })
 
 app.get('/board',(req,res)=>{
-    res.render('board.ejs',{nickname:nickname})
+    connection.query('select * from now_board',(err,row)=>{
+        res.render('board.ejs',{nickname:nickname, title:row})
+    })
 })
 
 // app.post('/board/search',(req,res)=>{
 
 // })
+
+app.get('/board/new',(req,res)=>{
+    res.sendFile(path.join(__dirname,"./public/newBoard.html"))
+})
+
+app.post('/board/new',(req,res)=>{
+    var title = req.body.newBoard_title
+    var detail = req.body.newBoard_detail
+
+    connection.query('insert into now_board(title,detail) values (?,?)',[title,detail],(err,rows)=>{
+        if(err){
+            throw err;
+        }
+        res.redirect('/board');
+    })
+})

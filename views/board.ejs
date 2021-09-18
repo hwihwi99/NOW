@@ -16,8 +16,23 @@
         게시판 검색:
         <input type="text" name="board_search" id="board_search">
     </form>
-
+    <a href="/board/new">게시판 추가</a>
     <hr>
- 
+    <hr>
+    <table border="1">
+        <tr>
+            <th></th>
+            <th>게시판 이름</th>
+            <th>게시판 설명</th>
+        </tr>
+       
+        <%for(var i = 0; i< title.length; i++) {%>
+            <tr>
+                <td><%= i+1 %></td>
+                <td><%= title[i].title %></td>
+                <td><%= title[i].detail %></td>
+            </tr>
+        <% }; %>   
+    </table>
 </body>
 </html>
