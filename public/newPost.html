@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>join</title>
+    <link rel="stylesheet" href="./css/join.css">
+</head>
+<body>
+    <div class="join">
+        <img src="../img/now_logo.png" alt="logo">
+        <h1>
+            게시글 추가
+        </h1>
+        <form action="/post/new" method="POST">       
+            제목 <input type="text" name="post_title" id="post_title">
+            <br>
+            내용 <input type="text" name="post_content" id="post_content">
+            <br>
+            <input type="submit" value="게시글 추가">
+        </form>
+    </div>
+</body>
+</html>

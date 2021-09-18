@@ -107,11 +107,25 @@ app.get('/board',(req,res)=>{
     })
 })
 
+var board_title
+
+app.get('/board/:title',(req,res)=>{
+    console.log(board_title);
+    connection.query('select * from now_post where board_title = ?',[board_title],(err,row)=>{
+        res.render('post.ejs',{nickname:nickname,board_title:board_title,post:row})
+    })
+})
+
+app.post('/board/:title',(req,res)=>{
+    board_title = req.body.board_title;
+    res.redirect('/board/:title');
+})
 // app.post('/board/search',(req,res)=>{
 
 // })
 
 app.get('/board/new',(req,res)=>{
+    console.log(__dirname)
     res.sendFile(path.join(__dirname,"./public/newBoard.html"))
 })
 
@@ -125,4 +139,9 @@ app.post('/board/new',(req,res)=>{
         }
         res.redirect('/board');
     })
+})
+
+app.get('/post/new',(req,res)=>{
+    
+    res.sendFile(path.join(__dirname,"./public/newPost.html"))
 })

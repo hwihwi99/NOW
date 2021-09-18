@@ -7,34 +7,34 @@
     <title>Document</title>
 </head>
 <body>
-    <h1><%=nickname%>님 반갑습니다. 이곳은 게시판 목록을 볼 수 있는 곳입니다.</h1>
+    <h1><%=nickname%>님 반갑습니다. 이곳은 <%=board_title%>에 적힌 게시글을 볼 수 있는 곳입니다.</h1>
     <a href="/home">
         <img src="./img/now_logo.png" alt="로고 사진 입니다.">
     </a>
 
-    <form action="/board/search" method="post">
+    <form action="/post/search" method="post">
         게시판 검색:
-        <input type="text" name="board_search" id="board_search">
+        <input type="text" name="post_search" id="post_search">
     </form>
-    <a href="/board/new">게시판 추가</a>
+    <a href="/post/new">게시글 추가</a>
     <hr>
     <hr>
     <table border="1">
         <tr>
             <th></th>
-            <th>게시판 이름</th>
-            <th>게시판 설명</th>
+            <th>게시글 제목</th>
+            <th>작성자</th>
         </tr>
        
-        <%for(var i = 0; i< title.length; i++) {%>
+        <%for(var i = 0; i< post.length; i++) {%>
             <tr>
                 <td><%= i+1 %></td>
                 <td>
                     <form action="/board/<%= title[i].title%>" method="post">
-                        <input type="submit" name="board_title" id="board_title" value="<%= title[i].title %>">
+                        <input type="submit" name="post_title" id="post_title" value="<%= post[i].title %>">
                     </form>
                 </td>
-                <td><%= title[i].detail %></td>
+                <td><%= post[i].nickname %></td>
             </tr>
         <% }; %>   
     </table>
