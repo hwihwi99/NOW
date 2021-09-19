@@ -16,7 +16,8 @@
         게시판 검색:
         <input type="text" name="board_search" id="board_search">
     </form>
-    <a href="/board/new">게시판 추가</a>
+
+    <a href="/board/new">게시판 추가하기</a>
     <hr>
     <hr>
     <table border="1">
@@ -30,7 +31,7 @@
             <tr>
                 <td><%= i+1 %></td>
                 <td>
-                    <form action="/board/<%= title[i].title%>" method="post">
+                    <form action="/board/<%= title[i].id%>" method="post">
                         <input type="submit" name="board_title" id="board_title" value="<%= title[i].title %>">
                     </form>
                 </td>

@@ -9,11 +9,11 @@
 <body>
     <h1><%=nickname%>님 반갑습니다. 이곳은 <%=board_title%>에 적힌 게시글을 볼 수 있는 곳입니다.</h1>
     <a href="/home">
-        <img src="./img/now_logo.png" alt="로고 사진 입니다.">
+        <img src="./public/img/now_logo.png" alt="로고 사진 입니다.">
     </a>
 
     <form action="/post/search" method="post">
-        게시판 검색:
+        게시글 검색:
         <input type="text" name="post_search" id="post_search">
     </form>
     <a href="/post/new">게시글 추가</a>
@@ -30,7 +30,7 @@
             <tr>
                 <td><%= i+1 %></td>
                 <td>
-                    <form action="/board/<%= title[i].title%>" method="post">
+                    <form action="/post/<%= post[i].id%>" method="post">
                         <input type="submit" name="post_title" id="post_title" value="<%= post[i].title %>">
                     </form>
                 </td>
