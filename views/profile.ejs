@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/home">
+        <img src="./img/now_logo.png" alt="로고 사진 입니다.">
+    </a>
+    <hr>
+    닉네임 : <%= user.nickname %>
+    <br>
+    이메일 : <%= user.email%>
+    <br>
+    이름 : <%= user.user_name%>
+    <br>
+    정보를 수정하시려면 올바른 비밀번호를 입력하여 주십시오.
+    <form action="/user/identify" method="POST">
+        <input type="password" name="user_passowrd" id="user_passowrd">
+        <input type="submit" value="정보수정하기">
+    </form>   
+</body>
+</html>

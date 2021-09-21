@@ -7,23 +7,29 @@
     <title>Document</title>
 </head>
 <body>
-   
-   현재 사용자 이름 : <%=nickname%>
-   <br>
-   현재 게시판 : <%=board_title%>
-   <hr>
-   제목 :  <%=post[0].title%>
-   <br>
-   내용 :  <%=post[0].content%>
-   <br>
-   작성시간 : <%=post[0].post_time%>
-   <br>
-   <a href="/update">
-        수정
-   </a>
-   <br>
-   <a href="/delete">
-        삭제
-   </a>
+     <a href="/home">
+          <img src="../img/now_logo.png" alt="로고 사진 입니다.">
+     </a>  
+     <a href="/post">
+          게시글 목록으로 돌아가기
+     </a>
+     <hr>
+     현재 사용자 이름 : <%=nickname%>
+     <br>
+     현재 게시판 : <%=board_title%>
+     <hr>
+     제목 :  <%=post[0].title%>
+     <br>
+     내용 :  <%=post[0].content%>
+     <br>
+     작성시간 : <%=post[0].post_time%>
+     <br>
+     <a href="/update">
+          수정
+     </a>
+     <br>
+     <a href="/delete">
+          삭제
+     </a>
 </body>
 </html>

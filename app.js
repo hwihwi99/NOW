@@ -216,3 +216,44 @@ app.get('/delete',(req,res)=>{
         }
     })
 })
+
+///////////////////////////////프로필 관리하기/////////////////
+app.get('/profile',(req,res)=>{
+    console.log(nickname);
+    connection.query('select * from now_user where nickname = ?',[nickname],(err,row)=>{
+        res.render('profile.ejs',{user:row[0]})
+    })
+})
+
+app.post('/user/identify',(req,res)=>{
+    var inputpw = req.body.user_passowrd
+    connection.query('select * from now_user where nickname = ?',[nickname],(err,row)=>{
+        var pwcheck = crypto.createHash("sha512").update(inputpw+row[0].salt).digest("hex")
+        if(pwcheck===row[0].pw){
+            console.log(row)
+            res.render('profileModify.ejs',{user:row[0]});
+        }else{
+            res.send("<script>alert('비밀번호가 다릅니다.');location.href='/profile';</script>")
+        }
+    })
+})
+
+app.post('/user/identify/name',(req,res)=>{
+    var newName = req.body.user_name; 
+    connection.query('update now_user set user_name = ? where nickname = ?',[newName,nickname],(err,row)=>{
+        res.send("<script>alert('이름을 변경하였습니다.');location.href='/profile';</script>")
+    })
+})
+
+app.post('/user/identify/password',(req,res)=>{
+    var user_pw = req.body.user_pw; 
+    var user_repw = req.body.user_repw;
+    // 비밀번호가 같으면
+    if(user_pw == user_repw){
+        var new_salt = Math.round((new Date().valueOf()*Math.random()))+""
+        var new_hashpw = crypto.createHash("sha512").update(user_pw+new_salt).digest("hex")
+        connection.query('update now_user set salt = ?, pw = ? where nickname = ?',[new_salt,new_hashpw,nickname],(err,row)=>{
+            res.send("<script>alert('비밀번호 번경이 완료되었습니다. 다시 로그인하세요');location.href='/login';</script>")
+        })
+    }
+})

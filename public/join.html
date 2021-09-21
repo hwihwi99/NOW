@@ -16,15 +16,15 @@
             회원가입
         </h1>
         <form action="/join" method="POST">       
-            이메일 <input type="email" name="join_email" id="join_email">
+            이메일 <input type="email" name="join_email" id="join_email" required>
             <br>
-            비밀번호 <input type="password" name="join_pw" id="join_pw">
+            비밀번호 <input type="password" name="join_pw" id="join_pw" required>
             <br>
-            비밀번호 확인 <input type="password" name="join_pwcheck" id="join_pwcheck">
+            비밀번호 확인 <input type="password" name="join_pwcheck" id="join_pwcheck" required>
             <br>
-            닉네임 <input type="text" name="join_nickname" id="join_nickname">
+            닉네임 <input type="text" name="join_nickname" id="join_nickname" required>
             <br>
-            사용자 이름 <input type="text" name="join_name" id="join_name">
+            사용자 이름 <input type="text" name="join_name" id="join_name" required>
             <br>
             <input type="submit" value="회원가입">
         </form>
