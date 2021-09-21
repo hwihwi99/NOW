@@ -255,5 +255,7 @@ app.post('/user/identify/password',(req,res)=>{
         connection.query('update now_user set salt = ?, pw = ? where nickname = ?',[new_salt,new_hashpw,nickname],(err,row)=>{
             res.send("<script>alert('비밀번호 번경이 완료되었습니다. 다시 로그인하세요');location.href='/login';</script>")
         })
+    }else{
+        res.send("<script>alert('두 비밀번호가 다릅니다. 다시 확인해주세요');history.go(-1);;</script>")     
     }
 })
