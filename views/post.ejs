@@ -9,21 +9,24 @@
 <body>
     <h1><%=nickname%>님 반갑습니다. 이곳은 <%=board_title%>에 적힌 게시글을 볼 수 있는 곳입니다.</h1>
     <a href="/home">
-        <img src="./public/img/now_logo.png" alt="로고 사진 입니다.">
+        <img src="../img/now_logo.png" alt="로고 사진 입니다.">
     </a>
 
     <form action="/post/search" method="post">
         게시글 검색:
         <input type="text" name="post_search" id="post_search">
     </form>
-    <a href="/post/new">게시글 추가</a>
     <hr>
+    <a href="/newpost">
+        게시글추가
+    </a>
     <hr>
     <table border="1">
         <tr>
             <th></th>
             <th>게시글 제목</th>
             <th>작성자</th>
+            <th>작성 혹은 수정 시간</th>
         </tr>
        
         <%for(var i = 0; i< post.length; i++) {%>
@@ -35,6 +38,7 @@
                     </form>
                 </td>
                 <td><%= post[i].nickname %></td>
+                <td><%= post[i].post_time %>/td>
             </tr>
         <% }; %>   
     </table>

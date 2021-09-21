@@ -11,15 +11,16 @@
     <div class="join">
         <img src="../img/now_logo.png" alt="logo">
         <h1>
-            게시판 추가
+            게시글 추가
         </h1>
-        <form action="/newboard" method="POST">       
-            게시판 <input type="text" name="newBoard_title" id="newBoard_title" required>
+        <form action="/update" method="POST">       
+            제목 <input type="text" name="post_title" id="post_title" value="<%=post[0].title%>">
             <br>
-            설명 <input type="text" name="newBoard_detail" id="newBoard_detail" required>
+            내용 <input type="text" name="post_content" id="post_content" value="<%=post[0].content%>">
             <br>
-            <input type="submit" value="게시판 추가">
+            <input type="submit" value="수정하기">
         </form>
+        <a href="/post/:title">뒤로가기</a>
     </div>
 </body>
 </html>

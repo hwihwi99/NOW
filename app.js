@@ -20,6 +20,7 @@ var nickname;
 app.use(express.static('public'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}));
+app.set('views', __dirname + '/views');
 app.set('view engine','ejs');
 app.listen(3000,function(){
     console.log('server start')
@@ -121,20 +122,30 @@ app.get('/board',(req,res)=>{
 
 var board_title
 
-app.get('/board/:title',(req,res)=>{
+app.get('/board/:id',(req,res)=>{
     connection.query('select * from now_post where board_title = ?',[board_title],(err,row)=>{
         res.render('post.ejs',{nickname:nickname,board_title:board_title,post:row})
     })
 })
 
-app.post('/board/:title',(req,res)=>{
+app.post('/board/:id',(req,res)=>{
     board_title = req.body.board_title;
     res.redirect('/board/:title');
 })
 
 //////////////////////////////////////////게시판 추가하기/////////////////////////////////////////////////////
-app.get('/board/new',(req,res)=>{
-    res.send("hhhhhh")
+app.get('/newboard',(req,res)=>{
+    console.log('새 게시판 추가')
+    res.sendFile(path.join(__dirname,"./public/newBoard.html"))
+})
+
+app.post('/newboard',(req,res)=>{
+    var newboard_title = req.body.newBoard_title
+    var newboard_detail = req.body.newBoard_detail
+    console.log(newboard_detail)
+    connection.query('insert into now_board (title,detail) values (?,?)',[newboard_title,newboard_detail],(err,row)=>{
+        res.send("<script>alert('게시판이 추가되었습니다');location.href='/board';</script>")
+    })
 })
 
 
@@ -146,30 +157,62 @@ app.get('/post',(req,res)=>{
 })
 
 //////////////////////////////////////////게시글마다 해당 글 내용 지워주기/////////////////////////////////////////////////////
-var post_title
-
-app.post('/post/:title',(req,res)=>{
-    post_title = req.body.post_title;
+var post_id
+var post_title;
+app.post('/post/:id',(req,res)=>{
+    post_id = req.params.id;
+    post_title = req.body.post_title
     res.redirect('/post/:title');
 })
 
-app.get('/post/:title',(req,res)=>{
-    connection.query('select * from now_post where title = ?',[post_title],(err,row)=>{
-        res.render('postDetail.ejs',{nickname:nickname,board_title:board_title,post:row})
+app.get('/post/:id',(req,res)=>{
+    connection.query('select * from now_post where title = ? ',[post_title],(err,row)=>{
+        res.render('postDetail.ejs',{nickname:nickname,board_title:board_title,post:row});
     })
 })
 
 /////////////////////////////////////////게시글 추가하기//////////////////////////////////////////////////////////
-app.get('/post/new',(req,res)=>{
+app.get('/newpost',(req,res)=>{
     console.log('게시글 작성 페이지')
-    res.sendFile(path.join(__dirname,"./public/newPost.html"))
+    res.sendFile(path.join(__dirname,"/public/newPost.html"))
 })
-
-app.post('/post/new',(req,res)=>{
+var post_time
+app.post('/newpost',(req,res)=>{
     var post_title = req.body.post_title;
     var post_content = req.body.post_content;
-    var post_time = moment().format('YYYY-MM-DD HH:mm:ss')
+    post_time = moment().format('YYYY-MM-DD HH:mm:ss')
     connection.query('insert into now_post(title,content,nickname,board_title,post_time) values (?,?,?,?,?)',[post_title,post_content,nickname,board_title,post_time],(err,row)=>{
         res.redirect('/post');
+    })
+})
+////////////////////////////////////게시글 수정하기//////////////////////////////////////////////////////////
+app.get('/update',(req,res)=>{
+    connection.query('select * from now_post where id = ?',[post_id],(err,row)=>{
+        if(row[0].nickname === nickname){
+            res.render('updatePost.ejs',{post:row})
+        }else{
+            res.send("<script>alert('게시글 수정 권한이 없습니다.');location.href='/post/:id';</script>")
+        }
+    })
+})
+
+app.post('/update',(req,res)=>{
+    post_title = req.body.post_title
+    var post_content = req.body.post_content
+    connection.query('update now_post set title=?, content = ? where id = ?',[post_title,post_content,post_id],(err,row)=>{
+        res.send("<script>alert('게시글 수정이 완료되었습니다.');location.href='/post/:id';</script>")
+    })
+})
+
+////////////////////////////////게시글 삭제하기//////////////////////////////////////////////////////
+app.get('/delete',(req,res)=>{
+    connection.query('select * from now_post where id = ?',[post_id],(err,row)=>{
+        if(row[0].nickname === nickname){
+            connection.query('delete from now_post where id = ?',[post_id],(err,rows)=>{
+                res.send("<script>alert('게시글이 삭제되었습니다.');location.href='/post';</script>")
+            })
+        }else{
+            res.send("<script>alert('게시글 삭제 권한이 없습니다.');location.href='/post/:id';</script>")
+        }
     })
 })
