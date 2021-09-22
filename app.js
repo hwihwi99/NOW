@@ -3,6 +3,7 @@ var app = express()
 var path = require('path')
 var bodyParser = require('body-parser')
 var moment = require('moment')
+
 var crypto = require('crypto')
 var mysql = require('mysql')
 const { reset } = require('nodemon')
@@ -11,7 +12,8 @@ var connection = mysql.createConnection({
     user : 'root',
     port : '3306',
     password : '1234',
-    database : 'now'
+    database : 'now',
+    dateStrings : 'date'
 })
 connection.connect();
 
@@ -123,7 +125,7 @@ app.get('/board',(req,res)=>{
 var board_title
 
 app.get('/board/:id',(req,res)=>{
-    connection.query('select * from now_post where board_title = ?',[board_title],(err,row)=>{
+    connection.query('select * from now_post where board_title = ? order by post_time desc',[board_title],(err,row)=>{
         res.render('post.ejs',{nickname:nickname,board_title:board_title,post:row})
     })
 })
@@ -142,17 +144,8 @@ app.get('/newboard',(req,res)=>{
 app.post('/newboard',(req,res)=>{
     var newboard_title = req.body.newBoard_title
     var newboard_detail = req.body.newBoard_detail
-    console.log(newboard_detail)
     connection.query('insert into now_board (title,detail) values (?,?)',[newboard_title,newboard_detail],(err,row)=>{
         res.send("<script>alert('게시판이 추가되었습니다');location.href='/board';</script>")
-    })
-})
-
-
-//////////////////////////////////////////게시글 종류들 보여주기/////////////////////////////////////////////////////
-app.get('/post',(req,res)=>{
-    connection.query('select * from now_post where board_title = ?',[board_title],(err,row)=>{
-        res.render('post.ejs',{nickname:nickname, post:row,board_title:board_title})
     })
 })
 
@@ -167,6 +160,7 @@ app.post('/post/:id',(req,res)=>{
 
 app.get('/post/:id',(req,res)=>{
     connection.query('select * from now_post where title = ? ',[post_title],(err,row)=>{
+        
         res.render('postDetail.ejs',{nickname:nickname,board_title:board_title,post:row});
     })
 })
@@ -182,7 +176,7 @@ app.post('/newpost',(req,res)=>{
     var post_content = req.body.post_content;
     post_time = moment().format('YYYY-MM-DD HH:mm:ss')
     connection.query('insert into now_post(title,content,nickname,board_title,post_time) values (?,?,?,?,?)',[post_title,post_content,nickname,board_title,post_time],(err,row)=>{
-        res.redirect('/post');
+        res.redirect('/board/:title');
     })
 })
 ////////////////////////////////////게시글 수정하기//////////////////////////////////////////////////////////
