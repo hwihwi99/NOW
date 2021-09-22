@@ -109,7 +109,9 @@ app.post('/join',(req,res)=>{
 //////////////////////////////////////////메인 홈 화면/////////////////////////////////////////////////////
 
 app.get('/home',(req,res)=>{
-    res.render('home.ejs',{nickname:nickname})
+    connection.query('select * from now_post order by post_time desc',(err,row)=>{
+        res.render('home.ejs',{nickname:nickname, list:row})
+    })
 })
 
 //////////////////////////////////////////게시판 종류들 보여주기/////////////////////////////////////////////////////
