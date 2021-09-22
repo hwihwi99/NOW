@@ -259,3 +259,26 @@ app.post('/user/identify/password',(req,res)=>{
         res.send("<script>alert('두 비밀번호가 다릅니다. 다시 확인해주세요');history.go(-1);;</script>")     
     }
 })
+
+//////////////////////////////////////////////////게시판 검색하기/////////////////
+app.post('/boardSearch',(req,res)=>{
+    var search_input = req.body.board_search;
+    connection.query('select * from now_board where title like ?',['%'+search_input+'%'],(err,rows)=>{
+        res.render('board.ejs',{nickname:nickname,title:rows})
+    })
+})
+
+//////////////////////////////////////////////////게시글 검색하기/////////////////
+app.post('/boardSearch',(req,res)=>{
+    var search_input = req.body.board_search;
+    connection.query('select * from now_board where title like ?',['%'+search_input+'%'],(err,rows)=>{
+        res.render('board.ejs',{nickname:nickname,title:rows})
+    })
+})
+
+app.post('/postSearch',(req,res)=>{
+    var search_input = req.body.post_search;
+    connection.query('select * from now_post where title like ? and board_title = ?',['%'+search_input+'%',board_title],(err,rows)=>{
+        res.render('post.ejs',{nickname:nickname,board_title:board_title,post:rows})
+    })
+})
