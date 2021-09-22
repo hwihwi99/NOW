@@ -26,6 +26,8 @@
      <br>
      작성시간 : <%=post[0].post_time%>
      <br>
+     <%=post[0].id%>번 째 글입니다
+     <br>
      <a href="/update">
           수정
      </a>
@@ -33,5 +35,12 @@
      <a href="/delete">
           삭제
      </a>
+     <hr>
+     <h1>댓글달기</h1>
+    
+     <form action="/comment" method="POST">
+          <input type="text" name="comment" id="comment">
+          <input type="submit" value="댓글 달기">
+     </form>
 </body>
 </html>

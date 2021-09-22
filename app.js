@@ -156,14 +156,17 @@ var post_id
 var post_title;
 app.post('/post/:id',(req,res)=>{
     post_id = req.params.id;
+    console.log(post_id)
     post_title = req.body.post_title
     res.redirect('/post/:title');
 })
 
 app.get('/post/:id',(req,res)=>{
-    connection.query('select * from now_post where title = ? ',[post_title],(err,row)=>{
-        
-        res.render('postDetail.ejs',{nickname:nickname,board_title:board_title,post:row});
+    connection.query('select * from now_post where id = ? ',[post_id],(err,row)=>{
+        connection.query('select * from now_commenet where post_id = ?',[post_id],(err,result)=>{
+            console.log(result)
+            res.render('postDetail.ejs',{nickname:nickname,board_title:board_title,post:row});
+        })
     })
 })
 
@@ -277,4 +280,19 @@ app.post('/postSearch',(req,res)=>{
     connection.query('select * from now_post where title like ? and board_title = ?',['%'+search_input+'%',board_title],(err,rows)=>{
         res.render('post.ejs',{nickname:nickname,board_title:board_title,post:rows})
     })
+})
+
+////////////////////////////////////////////게시글 댓글 달기////////////
+app.post('/comment',(req,res)=>{
+    var comment = req.body.comment;
+    connection.query('select * from now_board where title = ?',[board_title],(err,row)=>{
+        console.log(row[0].title);
+        console.log(row[0].id);
+        connection.query('insert into now_commnet(post_comment,nickname,post_id,board_id) values(?,?,?,?)',[comment,nickname,post_id,row[0].id],(err,result)=>{
+            console.log('입력완료')
+            res.redirect('/post/:id');
+        })
+    })
+    
+    
 })

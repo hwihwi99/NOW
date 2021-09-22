@@ -29,6 +29,7 @@
         <tr>
             <th></th>
             <th>게시글 제목</th>
+            <th>게시글 번호</th>
             <th>작성자</th>
             <th>작성 혹은 수정 시간</th>
         </tr>
@@ -41,6 +42,7 @@
                         <input type="submit" name="post_title" id="post_title" value="<%= post[i].title %>">
                     </form>
                 </td>
+                <td><%= post[i].id%></td>
                 <td><%= post[i].nickname %></td>
                 <td><%= post[i].post_time %></td>>
             </tr>
