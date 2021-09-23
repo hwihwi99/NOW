@@ -32,9 +32,9 @@
             <th>게시글 번호</th>
             <th>댓글수</th>
             <th>작성자</th>
-            <th>작성 혹은 수정 시간</th>
+            <th>작성 시간</th>
         </tr>
-       
+        <%var j = 0%>
         <%for(var i = 0; i< post.length; i++) {%>
             <tr>
                 <td><%= i+1 %></td>
@@ -44,7 +44,12 @@
                     </form>
                 </td>
                 <td><%= post[i].id%></td>
-                <td>00</td>
+                <% if(j< comment_num.length && post[i].id == comment_num[j].post_id) { %>
+                    <td><%= comment_num[j].count %></td>
+                    <%j++ %>
+                <% } else { %>
+                    <td>00</td>
+                <% }; %> 
                 <td><%= post[i].nickname %></td>
                 <td><%= post[i].post_time %></td>>
             </tr>

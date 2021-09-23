@@ -128,9 +128,10 @@ var board_title
 
 app.get('/board/:id',(req,res)=>{
     connection.query('select * from now_post where board_title = ? order by post_time desc',[board_title],(err,row)=>{
-        // select c.post_id, count(*) from now_comment as c join now_post as p on c.post_id = p.id group by c.post_id;
-        // 댓글 갯수 카운트해주는 애일듯..-> 다시 확인해보기
-        res.render('post.ejs',{nickname:nickname,board_title:board_title,post:row})
+        connection.query('select c.post_id, count(*) as count from now_comment as c join now_post as p on c.post_id = p.id where board_title = ? group by c.post_id order by post_time desc',[board_title],(errs,result)=>{
+            console.log(result);
+            res.render('post.ejs',{nickname:nickname,board_title:board_title,post:row,comment_num:result})
+        })
     })
 })
 
