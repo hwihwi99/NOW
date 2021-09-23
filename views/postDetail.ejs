@@ -37,7 +37,30 @@
      </a>
      <hr>
      <h1>댓글달기</h1>
-    
+     <h3>댓글수 : <%=comment.length%></h3>
+     <table border="1">
+          <tr>
+              <th></th>
+              <th>댓글 내용</th>
+              <th>댓글 단 사람</th>
+          </tr>
+         
+          <%for(var i = 0; i< comment.length; i++) {%>
+              <tr>
+                  <td><%= i+1 %></td>
+                  <td>
+                      <%= comment[i].post_comment%>
+                  </td>
+                  <td><%= comment[i].nickname%></td>
+                  <td>
+                       <form action="/deleteComment/<%=comment[i].comment_id%>" method="post">
+                         <input type="submit" value="삭제하기">
+                       </form>
+                  </td>
+              </tr>
+          <% }; %>   
+      </table>
+      <br>
      <form action="/comment" method="POST">
           <input type="text" name="comment" id="comment">
           <input type="submit" value="댓글 달기">

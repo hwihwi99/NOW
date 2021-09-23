@@ -9,9 +9,11 @@
 </head>
 <body>
     <div class="join">
-        <img src="../img/now_logo.png" alt="logo">
+        <a href="/home">
+            <img src="../img/now_logo.png" alt="logo">
+        </a>
         <h1>
-            게시글 추가
+            게시글 수정
         </h1>
         <form action="/update" method="POST">       
             제목 <input type="text" name="post_title" id="post_title" value="<%=post[0].title%>">

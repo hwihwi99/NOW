@@ -128,13 +128,15 @@ var board_title
 
 app.get('/board/:id',(req,res)=>{
     connection.query('select * from now_post where board_title = ? order by post_time desc',[board_title],(err,row)=>{
+        // select c.post_id, count(*) from now_comment as c join now_post as p on c.post_id = p.id group by c.post_id;
+        // 댓글 갯수 카운트해주는 애일듯..-> 다시 확인해보기
         res.render('post.ejs',{nickname:nickname,board_title:board_title,post:row})
     })
 })
 
 app.post('/board/:id',(req,res)=>{
     board_title = req.body.board_title;
-    res.redirect('/board/:title');
+    res.redirect('/board/'+board_title);
 })
 
 //////////////////////////////////////////게시판 추가하기/////////////////////////////////////////////////////
@@ -158,16 +160,19 @@ app.post('/post/:id',(req,res)=>{
     post_id = req.params.id;
     console.log(post_id)
     post_title = req.body.post_title
-    res.redirect('/post/:title');
+    res.redirect('/post/'+post_id);
 })
 
 app.get('/post/:id',(req,res)=>{
     connection.query('select * from now_post where id = ? ',[post_id],(err,row)=>{
-        connection.query('select * from now_commenet where post_id = ?',[post_id],(err,result)=>{
-            console.log(result)
-            res.render('postDetail.ejs',{nickname:nickname,board_title:board_title,post:row});
+        connection.query('select * from now_comment where post_id = ?',[post_id],(err,result)=>{
+            res.render('postDetail.ejs',{nickname:nickname,board_title:board_title,post:row,comment:result});
         })
     })
+})
+
+app.get('/post',(req,res)=>{
+    res.redirect('/board/'+board_title);
 })
 
 /////////////////////////////////////////게시글 추가하기//////////////////////////////////////////////////////////
@@ -181,7 +186,7 @@ app.post('/newpost',(req,res)=>{
     var post_content = req.body.post_content;
     post_time = moment().format('YYYY-MM-DD HH:mm:ss')
     connection.query('insert into now_post(title,content,nickname,board_title,post_time) values (?,?,?,?,?)',[post_title,post_content,nickname,board_title,post_time],(err,row)=>{
-        res.redirect('/board/:title');
+        res.redirect('/board/'+board_title);
     })
 })
 ////////////////////////////////////게시글 수정하기//////////////////////////////////////////////////////////
@@ -190,7 +195,7 @@ app.get('/update',(req,res)=>{
         if(row[0].nickname === nickname){
             res.render('updatePost.ejs',{post:row})
         }else{
-            res.send("<script>alert('게시글 수정 권한이 없습니다.');location.href='/post/:id';</script>")
+            res.send("<script>alert('게시글 수정 권한이 없습니다.');history.go(-1);;</script>")
         }
     })
 })
@@ -199,7 +204,7 @@ app.post('/update',(req,res)=>{
     post_title = req.body.post_title
     var post_content = req.body.post_content
     connection.query('update now_post set title=?, content = ? where id = ?',[post_title,post_content,post_id],(err,row)=>{
-        res.send("<script>alert('게시글 수정이 완료되었습니다.');location.href='/post/:id';</script>")
+        res.send("<script>alert('게시글 수정이 완료되었습니다.');history.go(-1);</script>")
     })
 })
 
@@ -211,7 +216,7 @@ app.get('/delete',(req,res)=>{
                 res.send("<script>alert('게시글이 삭제되었습니다.');location.href='/post';</script>")
             })
         }else{
-            res.send("<script>alert('게시글 삭제 권한이 없습니다.');location.href='/post/:id';</script>")
+            res.send("<script>alert('게시글 삭제 권한이 없습니다.');history.go(-1);;</script>")
         }
     })
 })
@@ -288,11 +293,25 @@ app.post('/comment',(req,res)=>{
     connection.query('select * from now_board where title = ?',[board_title],(err,row)=>{
         console.log(row[0].title);
         console.log(row[0].id);
-        connection.query('insert into now_commnet(post_comment,nickname,post_id,board_id) values(?,?,?,?)',[comment,nickname,post_id,row[0].id],(err,result)=>{
+        connection.query('insert into now_comment(post_comment,nickname,post_id,board_id) values(?,?,?,?)',[comment,nickname,post_id,row[0].id],(err,result)=>{
+            if(err){
+                throw err;
+            }
             console.log('입력완료')
-            res.redirect('/post/:id');
+            res.redirect('/post/'+post_id);
         })
     })
     
     
+})
+
+// 댓글 삭제하기
+app.post('/deleteComment/:comment_id',(req,res)=>{
+    var id = req.params.comment_id;
+    connection.query('delete from now_comment where comment_id = ?',[id],(err,row)=>{
+        if(err){
+            throw err;
+        }
+        res.redirect('/post/'+post_id)
+    })
 })
