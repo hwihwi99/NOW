@@ -149,9 +149,17 @@ app.get('/newboard',(req,res)=>{
 app.post('/newboard',(req,res)=>{
     var newboard_title = req.body.newBoard_title
     var newboard_detail = req.body.newBoard_detail
-    connection.query('insert into now_board (title,detail) values (?,?)',[newboard_title,newboard_detail],(err,row)=>{
-        res.send("<script>alert('게시판이 추가되었습니다');location.href='/board';</script>")
+    connection.query('select * from now_board where title = ?',[newboard_title],(err,result)=>{
+        if(result.length > 0){
+            res.send("<script>alert('같은 이름의 게시판이 이미 존재합니다.');location.href='/board';</script>")
+        }
+        else{
+            connection.query('insert into now_board (title,detail) values (?,?)',[newboard_title,newboard_detail],(err,row)=>{
+                res.send("<script>alert('게시판이 추가되었습니다');location.href='/board';</script>")
+            })
+        }
     })
+    
 })
 
 //////////////////////////////////////////게시글마다 해당 글 내용 지워주기/////////////////////////////////////////////////////
@@ -205,7 +213,7 @@ app.post('/update',(req,res)=>{
     post_title = req.body.post_title
     var post_content = req.body.post_content
     connection.query('update now_post set title=?, content = ? where id = ?',[post_title,post_content,post_id],(err,row)=>{
-        res.send("<script>alert('게시글 수정이 완료되었습니다.');history.go(-1);</script>")
+        res.send("<script>alert('게시글 수정이 완료되었습니다.');location.href='/post/:id';</script>")
     })
 })
 
@@ -309,10 +317,16 @@ app.post('/comment',(req,res)=>{
 // 댓글 삭제하기
 app.post('/deleteComment/:comment_id',(req,res)=>{
     var id = req.params.comment_id;
-    connection.query('delete from now_comment where comment_id = ?',[id],(err,row)=>{
-        if(err){
-            throw err;
+    connection.query('select * from now_comment where comment_id = ?',[id],(err,row)=>{
+        if(row[0].nickname == nickname){
+            connection.query('delete from now_comment where comment_id = ?',[id],(err,row)=>{
+                if(err){
+                    throw err;
+                }
+                res.redirect('/post/'+post_id)
+            })
+        }else{
+            res.send("<script>alert('삭제 권한이 없습니다.');history.go(-1);;</script>")
         }
-        res.redirect('/post/'+post_id)
     })
 })
