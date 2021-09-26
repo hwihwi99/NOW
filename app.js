@@ -234,7 +234,9 @@ app.get('/delete',(req,res)=>{
 app.get('/profile',(req,res)=>{
     connection.query('select * from now_user where nickname = ?',[nickname],(err,row)=>{
         connection.query('select * from now_post where nickname = ?',[nickname],(err,result)=>{
-            res.render('profile.ejs',{user:row, post:result})
+            connection.query('select * from now_comment as u join now_post as p on u.nickname = p.nickname where u.nickname = ?',[nickname],(err,comment)=>{
+                res.render('profile.ejs',{user:row, post:result,comment:comment})
+            })
         })
     })
 })
