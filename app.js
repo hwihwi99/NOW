@@ -232,9 +232,10 @@ app.get('/delete',(req,res)=>{
 
 ///////////////////////////////프로필 관리하기/////////////////
 app.get('/profile',(req,res)=>{
-    console.log(nickname);
     connection.query('select * from now_user where nickname = ?',[nickname],(err,row)=>{
-        res.render('profile.ejs',{user:row[0]})
+        connection.query('select * from now_post where nickname = ?',[nickname],(err,result)=>{
+            res.render('profile.ejs',{user:row, post:result})
+        })
     })
 })
 

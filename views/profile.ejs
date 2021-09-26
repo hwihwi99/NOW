@@ -11,16 +11,29 @@
         <img src="./img/now_logo.png" alt="로고 사진 입니다.">
     </a>
     <hr>
-    닉네임 : <%= user.nickname %>
+    닉네임 : <%= user[0].nickname %>
     <br>
-    이메일 : <%= user.email%>
+    이메일 : <%= user[0].email%>
     <br>
-    이름 : <%= user.user_name%>
+    이름 : <%= user[0].user_name%>
     <br>
     정보를 수정하시려면 올바른 비밀번호를 입력하여 주십시오.
     <form action="/user/identify" method="POST">
         <input type="password" name="user_passowrd" id="user_passowrd">
         <input type="submit" value="정보수정하기">
     </form>   
+    <br>
+    <%= user[0].nickname %>님이 쓴 게시글 목록
+    <br>
+    <% if (post.length > 0) {%>
+        <% for( var i = 0; i< post.length; i++) { %>
+            <form action="/post/<%= post[i].id%>" method = "POST">
+                제목 :  <input type="submit" name="post_title" id="post_title" value="<%= post[i].title %>">
+            </form>
+            <hr>
+        <% } %>      
+    <% } else { %>    
+        작성한 게시글이 없습니다!
+    <% } %>      
 </body>
 </html>
