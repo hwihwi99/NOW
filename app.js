@@ -110,7 +110,9 @@ app.post('/join',(req,res)=>{
 
 app.get('/home',(req,res)=>{
     connection.query('select * from now_post order by post_time desc',(err,row)=>{
-        res.render('home.ejs',{nickname:nickname, list:row})
+        connection.query('select * from now_bookmark as book join now_board as board on book.board_id = board.id where nickname =?',[nickname],(err,result)=>{
+            res.render('home.ejs',{nickname:nickname, list:row, bookmark : result})
+        })
     })
 })
 
@@ -129,7 +131,6 @@ var board_title
 app.get('/board/:id',(req,res)=>{
     connection.query('select * from now_post where board_title = ? order by post_time desc',[board_title],(err,row)=>{
         connection.query('select c.post_id, count(*) as count from now_comment as c join now_post as p on c.post_id = p.id where board_title = ? group by c.post_id order by post_time desc',[board_title],(errs,result)=>{
-            console.log(result);
             res.render('post.ejs',{nickname:nickname,board_title:board_title,post:row,comment_num:result})
         })
     })
@@ -330,6 +331,29 @@ app.post('/deleteComment/:comment_id',(req,res)=>{
             })
         }else{
             res.send("<script>alert('삭제 권한이 없습니다.');history.go(-1);;</script>")
+        }
+    })
+})
+
+///////////////////////////북마크 처리///////////////////
+app.post('/bookmark',(req,res)=>{
+    connection.query('select * from now_bookmark as book join now_board as board on book.board_id = board.id where board.title = ?',[board_title],(err,row)=>{
+        if(row.length>0){
+            connection.query('delete from now_bookmark where nickname =? and board_id = ?',[nickname,row[0].id],(errs,bookmark)=>{
+                if(errs){
+                    throw errs
+                }
+                res.send("<script>alert('북마크에서 제거되었습니다.');location.href='/home';</script>")
+            })
+        }else {
+            connection.query('select * from now_board where title = ?',[board_title],(err,board)=>{
+                connection.query('insert into now_bookmark(nickname, board_id) values(?,?)',[nickname,board[0].id],(erri,result)=>{
+                    if(erri){
+                        throw erri;
+                    }
+                    res.send("<script>alert('북마크에 추가되었습니다.');location.href='/home';</script>")
+                })
+            })
         }
     })
 })

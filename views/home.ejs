@@ -14,7 +14,21 @@
     <a href="/board">게시판 목록</a>
 
     <hr>
-    찜목록 아직 진행중
+    <h1>찜목록</h1>
+    <%if(bookmark.length>0) {%>
+        <table border="1">
+            <tr>
+                <%for(var i = 0; i < bookmark.length; i++) {%>
+                    <form action="/board/<%= bookmark[i].id%>" method="post">
+                        게시판 : <input type="submit" name="board_title" id="board_title" value="<%= bookmark[i].title %>">
+                    </form>      
+                    <hr>  
+                <% } %>                
+            </tr>    
+        </table>
+    <%} else {%>
+       즐겨찾기한 게시판이 없습니다!
+    <%}%>
     <hr>
     최근 업로드된 게시글 top10(수정 시 업로드에 반영되지 않습니다.)
     <br>
