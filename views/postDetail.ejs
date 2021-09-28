@@ -30,6 +30,12 @@
      <br>
      <%=post[0].id%>번 째 글입니다
      <br>
+     <br>
+     좋아요 수 : <%=like.length%>
+     <form action="/like" method="POST">
+          <input type="submit" value="좋아요 누르기">
+      </form>
+     <br>
      <a href="/update">
           수정
      </a>

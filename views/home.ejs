@@ -14,7 +14,8 @@
     <a href="/board">게시판 목록</a>
 
     <hr>
-    <h1>찜목록</h1>
+    <b>찜목록</b>
+    <hr>
     <%if(bookmark.length>0) {%>
         <table border="1">
             <tr>
@@ -30,9 +31,7 @@
        즐겨찾기한 게시판이 없습니다!
     <%}%>
     <hr>
-    최근 업로드된 게시글 top10(수정 시 업로드에 반영되지 않습니다.)
-    <br>
-    게시글이 10개 이상이어야 보여집니다...
+    <b>최근 업로드된 게시글 top10</b>
     <br>
     <hr>
     <%if(list.length>=10) {%>
@@ -47,14 +46,66 @@
                     <br>
                     게시판 종류 : <%=list[i].board_title%>
                     <hr>
-                <% } %>
-                
+                <% } %>                
             </tr>    
         </table>
-    <%} else {%>
-       현재 게시판 수는 <%=list.length%>개 입니다.
-       <br>
-       top10 업로드 현황을 보려면 <%=10 - list.length%>개의 게시글이 더 필요합니다.
+    <%} else if (list.length>0) {%>
+        <table border="1">
+            <tr>
+                <%for(var i = 0; i < list.length; i++) {%>
+                    <form action="/post/<%= list[i].id%>" method="post">
+                        제목 : <input type="submit" name="post_title" id="post_title" value="<%= list[i].title %>">
+                    </form>        
+                    <br>
+                    작성자 : <%=list[i].nickname%>
+                    <br>
+                    게시판 종류 : <%=list[i].board_title%>
+                    <hr>
+                <% } %>                
+            </tr>    
+        </table>
+    <%}else {%>
+        등록된 게시글이 없습니다.
     <%}%>    
+    <hr>
+    <b>인기 top5(좋아요 순)</b>
+    <hr>
+    <%if(like.length>=5) {%>
+        <table border="1">
+            <tr>
+                <%for(var i = 0; i < 5; i++) {%>
+                    <form action="/post/<%= like[i].id%>" method="post">
+                        제목 : <input type="submit" name="post_title" id="post_title" value="<%= like[i].title %>">
+                    </form>        
+                    <br>
+                    작성자 : <%=like[i].nickname%>
+                    <br>
+                    게시판 종류 : <%=like[i].board_title%>
+                    <br>
+                    좋아요 슈 : <%=like[i].c%>
+                    <hr>
+                <% } %>                
+            </tr>    
+        </table>
+    <%} else if (list.length>0) {%>
+        <table border="1">
+            <tr>
+                <%for(var i = 0; i < like.length; i++) {%>
+                    <form action="/post/<%= like[i].id%>" method="post">
+                        제목 : <input type="submit" name="post_title" id="post_title" value="<%= like[i].title %>">
+                    </form>        
+                    <br>
+                    작성자 : <%=like[i].nickname%>
+                    <br>
+                    게시판 종류 : <%=like[i].board_title%>
+                    <br>
+                    좋아요 슈 : <%=like[i].c%>
+                    <hr>
+                <% } %>                
+            </tr>    
+        </table>
+    <%}else {%>
+        등록된 게시글이 없습니다.
+    <%}%>  
 </body>
 </html>

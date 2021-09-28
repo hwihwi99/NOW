@@ -111,7 +111,10 @@ app.post('/join',(req,res)=>{
 app.get('/home',(req,res)=>{
     connection.query('select * from now_post order by post_time desc',(err,row)=>{
         connection.query('select * from now_bookmark as book join now_board as board on book.board_id = board.id where nickname =?',[nickname],(err,result)=>{
-            res.render('home.ejs',{nickname:nickname, list:row, bookmark : result})
+            connection.query('select count(*) as c, p.id,p.title, p.board_title, p.nickname from now_like as l join now_post as p on l.post_id = p.id group by post_id order by c desc, post_time desc',(err,like)=>{
+                console.log(like)
+                res.render('home.ejs',{nickname:nickname, list:row, bookmark : result,like:like})
+            })
         })
     })
 })
@@ -176,7 +179,9 @@ app.post('/post/:id',(req,res)=>{
 app.get('/post/:id',(req,res)=>{
     connection.query('select * from now_post where id = ? ',[post_id],(err,row)=>{
         connection.query('select * from now_comment where post_id = ?',[post_id],(err,result)=>{
-            res.render('postDetail.ejs',{nickname:nickname,board_title:board_title,post:row,comment:result});
+            connection.query('select * from now_like where post_id = ?',[post_id],(err,like)=>{
+                res.render('postDetail.ejs',{nickname:nickname,board_title:board_title,post:row,comment:result,like:like});
+            })
         })
     })
 })
@@ -353,6 +358,25 @@ app.post('/bookmark',(req,res)=>{
                     }
                     res.send("<script>alert('북마크에 추가되었습니다.');location.href='/home';</script>")
                 })
+            })
+        }
+    })
+})
+//////////////////////////////////////////////좋아요
+app.post('/like',(req,res)=>{
+    connection.query('select * from now_like where nickname = ? and post_id = ?',[nickname,post_id],(errs,row)=>{
+        if(row.length>0){
+            connection.query('delete from now_like where nickname = ? and post_id = ?',[nickname,post_id],(err,result)=>{
+                if(err){
+                    throw err
+                }
+                console.log('좋아요삭제')
+                res.redirect('/post/'+post_id);
+            })
+        }else{
+            connection.query('insert into now_like(nickname, post_id) values (?,?)',[nickname,post_id],(errs,result)=>{
+                console.log('좋아요누르기')
+                res.redirect('/post/'+post_id)
             })
         }
     })
