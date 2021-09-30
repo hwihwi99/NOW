@@ -13,7 +13,7 @@
 }
 
 .LandingPage>img{
-    margin-top: 5px;
+    margin-bottom: 0px;
     width: 400px;
 }
 
@@ -51,15 +51,15 @@
 }
 
 .LandingPage_btn{
-    background-color:#045220 ;
-    border-radius: 8px;
+    background-color:#127a33; ;
+    border-radius: 5px;
     border: none;
     width: 200px;
     height: 50px;
     margin-bottom: 10px;
     margin-left: 100px;
     color: #efefef;
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 900;
 }
 

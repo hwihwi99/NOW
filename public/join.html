@@ -9,24 +9,26 @@
 </head>
 <body>
     <div class="join">
-        <a href="/">
-            <img src="../img/now_logo.png" alt="logo">
-        </a>
-        <h1>
-            회원가입
-        </h1>
-        <form action="/join" method="POST">       
-            이메일 <input type="email" name="join_email" id="join_email" required>
+        <div class="join-top">
+            <a href="/">
+                <img src="../img/now_logo.png" alt="logo">
+            </a>
+            <p>
+                Now 회원가입 페이지
+            </p>
+        </div>
+        <form action="/join" method="POST" class="join-input">       
+            <input type="email" name="join_email" id="join_email" placeholder="Email" required>
             <br>
-            비밀번호 <input type="password" name="join_pw" id="join_pw" required>
+            <input type="password" name="join_pw" id="join_pw" placeholder="Password" required>
             <br>
-            비밀번호 확인 <input type="password" name="join_pwcheck" id="join_pwcheck" required>
+            <input type="password" name="join_pwcheck" id="join_pwcheck" placeholder="Password check" required>
             <br>
-            닉네임 <input type="text" name="join_nickname" id="join_nickname" required>
+            <input type="text" name="join_nickname" id="join_nickname" placeholder="Nickname" required>
             <br>
-            사용자 이름 <input type="text" name="join_name" id="join_name" required>
+            <input type="text" name="join_name" id="join_name" placeholder="userName" required>
             <br>
-            <input type="submit" value="회원가입">
+            <button type="submit">SIGN UP</button>
         </form>
     </div>
 </body>
