@@ -5,107 +5,118 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/home.css">
 </head>
 <body>
-    <a href="/profile"><%=nickname%></a>님 반갑습니다. 이곳은 홈화면입니다.
-    <a href="/home">
-        <img src="./img/now_logo.png" alt="로고 사진 입니다.">
-    </a>
-    <a href="/board">게시판 목록</a>
-
-    <hr>
-    <b>찜목록</b>
-    <hr>
-    <%if(bookmark.length>0) {%>
-        <table border="1">
-            <tr>
-                <%for(var i = 0; i < bookmark.length; i++) {%>
-                    <form action="/board/<%= bookmark[i].id%>" method="post">
-                        게시판 : <input type="submit" name="board_title" id="board_title" value="<%= bookmark[i].title %>">
-                    </form>      
-                    <hr>  
-                <% } %>                
-            </tr>    
-        </table>
-    <%} else {%>
-       즐겨찾기한 게시판이 없습니다!
-    <%}%>
-    <hr>
-    <b>최근 업로드된 게시글 top10</b>
-    <br>
-    <hr>
-    <%if(list.length>=10) {%>
-        <table border="1">
-            <tr>
-                <%for(var i = 0; i < 10; i++) {%>
-                    <form action="/post/<%= list[i].id%>" method="post">
-                        제목 : <input type="submit" name="post_title" id="post_title" value="<%= list[i].title %>">
-                    </form>        
-                    <br>
-                    작성자 : <%=list[i].nickname%>
-                    <br>
-                    게시판 종류 : <%=list[i].board_title%>
-                    <hr>
-                <% } %>                
-            </tr>    
-        </table>
-    <%} else if (list.length>0) {%>
-        <table border="1">
-            <tr>
-                <%for(var i = 0; i < list.length; i++) {%>
-                    <form action="/post/<%= list[i].id%>" method="post">
-                        제목 : <input type="submit" name="post_title" id="post_title" value="<%= list[i].title %>">
-                    </form>        
-                    <br>
-                    작성자 : <%=list[i].nickname%>
-                    <br>
-                    게시판 종류 : <%=list[i].board_title%>
-                    <hr>
-                <% } %>                
-            </tr>    
-        </table>
-    <%}else {%>
-        등록된 게시글이 없습니다.
-    <%}%>    
-    <hr>
-    <b>인기 top5(좋아요 순)</b>
-    <hr>
-    <%if(like.length>=5) {%>
-        <table border="1">
-            <tr>
-                <%for(var i = 0; i < 5; i++) {%>
-                    <form action="/post/<%= like[i].id%>" method="post">
-                        제목 : <input type="submit" name="post_title" id="post_title" value="<%= like[i].title %>">
-                    </form>        
-                    <br>
-                    작성자 : <%=like[i].nickname%>
-                    <br>
-                    게시판 종류 : <%=like[i].board_title%>
-                    <br>
-                    좋아요 슈 : <%=like[i].c%>
-                    <hr>
-                <% } %>                
-            </tr>    
-        </table>
-    <%} else if (list.length>0) {%>
-        <table border="1">
-            <tr>
-                <%for(var i = 0; i < like.length; i++) {%>
-                    <form action="/post/<%= like[i].id%>" method="post">
-                        제목 : <input type="submit" name="post_title" id="post_title" value="<%= like[i].title %>">
-                    </form>        
-                    <br>
-                    작성자 : <%=like[i].nickname%>
-                    <br>
-                    게시판 종류 : <%=like[i].board_title%>
-                    <br>
-                    좋아요 슈 : <%=like[i].c%>
-                    <hr>
-                <% } %>                
-            </tr>    
-        </table>
-    <%}else {%>
-        등록된 게시글이 없습니다.
-    <%}%>  
+    <div class="home">
+        <nav>
+            <a href="/home">
+                <img src="./img/now_logo.png" alt="로고 사진 입니다.">
+            </a>
+            <div class="menu">
+                <p class="nav-intro">
+                    <a href="/profile"><%=nickname%>님</a> 반갑습니다. 이곳은 홈화면입니다.
+                </p>
+                <div class="text_menu">
+                    <a href="/board"><h1>게시판 구경가기</h1></a>
+                </div>
+            </div>
+        </nav>
+        <hr>
+        <b>찜목록</b>
+        <hr>
+        <%if(bookmark.length>0) {%>
+            <table border="1">
+                <tr>
+                    <%for(var i = 0; i < bookmark.length; i++) {%>
+                        <form action="/board/<%= bookmark[i].id%>" method="post">
+                            게시판 : <input type="submit" name="board_title" id="board_title" value="<%= bookmark[i].title %>">
+                        </form>      
+                        <hr>  
+                    <% } %>                
+                </tr>    
+            </table>
+        <%} else {%>
+           즐겨찾기한 게시판이 없습니다!
+        <%}%>
+        <hr>
+        <b>최근 업로드된 게시글 top10</b>
+        <br>
+        <hr>
+        <%if(list.length>=10) {%>
+            <table border="1">
+                <tr>
+                    <%for(var i = 0; i < 10; i++) {%>
+                        <form action="/post/<%= list[i].id%>" method="post">
+                            제목 : <input type="submit" name="post_title" id="post_title" value="<%= list[i].title %>">
+                        </form>        
+                        <br>
+                        작성자 : <%=list[i].nickname%>
+                        <br>
+                        게시판 종류 : <%=list[i].board_title%>
+                        <hr>
+                    <% } %>                
+                </tr>    
+            </table>
+        <%} else if (list.length>0) {%>
+            <table border="1">
+                <tr>
+                    <%for(var i = 0; i < list.length; i++) {%>
+                        <form action="/post/<%= list[i].id%>" method="post">
+                            제목 : <input type="submit" name="post_title" id="post_title" value="<%= list[i].title %>">
+                        </form>        
+                        <br>
+                        작성자 : <%=list[i].nickname%>
+                        <br>
+                        게시판 종류 : <%=list[i].board_title%>
+                        <hr>
+                    <% } %>                
+                </tr>    
+            </table>
+        <%}else {%>
+            등록된 게시글이 없습니다.
+        <%}%>    
+        <hr>
+        <b>인기 top5(좋아요 순)</b>
+        <hr>
+        <%if(like.length>=5) {%>
+            <table border="1">
+                <tr>
+                    <%for(var i = 0; i < 5; i++) {%>
+                        <form action="/post/<%= like[i].id%>" method="post">
+                            제목 : <input type="submit" name="post_title" id="post_title" value="<%= like[i].title %>">
+                        </form>        
+                        <br>
+                        작성자 : <%=like[i].nickname%>
+                        <br>
+                        게시판 종류 : <%=like[i].board_title%>
+                        <br>
+                        좋아요 슈 : <%=like[i].c%>
+                        <hr>
+                    <% } %>                
+                </tr>    
+            </table>
+        <%} else if (list.length>0) {%>
+            <table border="1">
+                <tr>
+                    <%for(var i = 0; i < like.length; i++) {%>
+                        <form action="/post/<%= like[i].id%>" method="post">
+                            제목 : <input type="submit" name="post_title" id="post_title" value="<%= like[i].title %>">
+                        </form>        
+                        <br>
+                        작성자 : <%=like[i].nickname%>
+                        <br>
+                        게시판 종류 : <%=like[i].board_title%>
+                        <br>
+                        좋아요 슈 : <%=like[i].c%>
+                        <hr>
+                    <% } %>                
+                </tr>    
+            </table>
+        <%}else {%>
+            등록된 게시글이 없습니다.
+        <%}%>  
+    </div>
 </body>
 </html>

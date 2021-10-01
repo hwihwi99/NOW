@@ -5,24 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/nav.css">
 </head>
 <body>
-    <a href="/profile"><%=nickname%></a>님, 게시판 목록을 볼 수 있는 곳입니다.
-    <a href="/home">
-        <img src="./img/now_logo.png" alt="로고 사진 입니다.">
-    </a>
-
-    <form action="/boardSearch" method="post">
-        게시판 검색:
-        <input type="text" name="board_search" id="board_search">
-    </form>
-
-    <hr>
-
-    <a href="/newboard">
-        게시판추가
-    </a>
-
+    <nav>
+        <a href="/home">
+            <img src="./img/now_logo.png" alt="로고 사진 입니다.">
+        </a>
+        <div class="menu">
+            <p class="nav-intro">
+                <a href="/profile"><%=nickname%>님</a> 이곳은 게시판 목록을 볼 수 있는 곳 입니다.
+            </p>
+            <div class="text_menu">
+                <a href="/newboard"><h1>게시판 추가</h1></a>
+                <form action="/boardSearch" method="post" class="search">
+                    <input type="text" name="board_search" id="board_search" placeholder="게시판 검색">
+                </form>
+            </div>
+        </div>
+    </nav>
 
     <hr>
     <table border="1">
