@@ -5,25 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>join</title>
-    <link rel="stylesheet" href="./css/join.css">
+    <link rel="stylesheet" href="./css/newboard_post.css">
 </head>
 <body>
-    <div class="join">
-        <a href="/home">
-            <img src="../img/now_logo.png" alt="logo">
-        </a>
-        <a href="/board">
-            게시판 만들기 취소
-        </a>
-        <h1>
-            게시판 추가
-        </h1>
-        <form action="/newboard" method="POST">       
-            게시판 <input type="text" name="newBoard_title" id="newBoard_title" required>
+    <div class="new_board_post">
+        <div class="new_header">
+            <a href="/home">
+                <img src="../img/now_logo.png" alt="logo">
+            </a>
+            <div class="new_text">
+                <p>
+                    게시판을 추가해보세요 <br>
+                    게시판 제목은 수정, 삭제가 불가능합니다.
+                </p>
+                <a href="/board">
+                    취소
+                </a>
+            </div>
+        </div>
+        <form action="/newboard" method="POST" class="new-input">       
+            <input type="text" name="newBoard_title" id="newBoard_title" placeholder="게시판 제목" required>
             <br>
-            설명 <input type="text" name="newBoard_detail" id="newBoard_detail" required>
+            <input type="text" name="newBoard_detail" id="newBoard_detail" placeholder="게시판 설명" required>
             <br>
-            <input type="submit" value="게시판 추가">
+            <button type="submit">게시판 추가</button>
         </form>
     </div>
 </body>

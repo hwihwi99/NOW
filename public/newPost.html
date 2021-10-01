@@ -5,26 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>join</title>
-    <link rel="stylesheet" href="./css/join.css">
+    <link rel="stylesheet" href="./css/newboard_post.css">
 </head>
 <body>
-    <div class="join">
-        <a href="/home">
-            <img src="../img/now_logo.png" alt="logo">
-        </a>
-        <a href="/post">
-            게시글 만들기 취소
-        </a>
-        <h1>
-            게시글 추가
-        </h1>
-        <form action="/newpost" method="POST">       
-            제목 <input type="text" name="post_title" id="post_title">
+    <div class="new_board_post">
+        <div class="new_header">
+            <a href="/home">
+                <img src="../img/now_logo.png" alt="logo">
+            </a>
+            <div class="new_text">
+                <p>
+                    게시글을 추가해보세요. 
+                </p>
+                <a href="/post">
+                    취소
+                </a>
+            </div>
+        </div>
+
+        <form action="/newpost" method="POST" class="new-input">       
+            <input type="text" name="post_title" id="post_title" placeholder="게시글 제목">
             <br>
-            내용 <input type="text" name="post_content" id="post_content">
+            <textarea style="height: 290px;" name="post_content" id="post_content" cols="30" rows="10" placeholder="게시글 내용"></textarea>
             <br>
-            <input type="submit" value="게시글 추가">
+            <button type="submit">게시글 추가</button>
         </form>
+        
     </div>
 </body>
 </html>
