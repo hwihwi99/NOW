@@ -1,0 +1,25 @@
+.table-header{
+    background-color: #1CB94E;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 15px;
+    color: rgb(245, 234, 234);
+}
+
+.title{
+    border: none;
+    background-color: white;
+    font-weight: bold;
+    color: #052c11;
+}
+.title :hover {
+    color: #1CB94E;
+    background-color: blanchedalmond;
+}
+.sub-content{
+    margin-left: 300px;
+    text-align: right;
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
