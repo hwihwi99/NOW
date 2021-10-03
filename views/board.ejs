@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/table.css">
 </head>
 <body>
     <nav>
@@ -26,24 +27,31 @@
     </nav>
     <hr>
     <br>
-    <table border="1">
+    <table>
         <tr>
-            <th></th>
-            <th>게시판 이름</th>
-            <th>게시판 설명</th>
+            <th class="table-header">게시판 이름</th>
+            <th class="table-header">게시판 설명</th>
         </tr>
-       
-        <%for(var i = 0; i< title.length; i++) {%>
+        <%if(title.length>0) {%>
             <tr>
-                <td><%= i+1 %></td>
                 <td>
-                    <form action="/board/<%= title[i].id%>" method="post">
-                        <input type="submit" name="board_title" id="board_title" value="<%= title[i].title %>">
-                    </form>
-                </td>
-                <td><%= title[i].detail %></td>
-            </tr>
-        <% }; %>   
+                    <%for(var i = 0; i< title.length; i++) {%>
+                        <tr>
+                            <td>
+                                <form action="/board/<%= title[i].id%>" method="post">
+                                    <input type="submit" name="board_title" id="board_title" class="title" value="<%= title[i].title %>">
+                                </form>
+                            </td>
+                            <td><p class="content"><%= title[i].detail %></p></td>
+                        </tr>
+                    <% }; %> 
+                </td>              
+            </tr>       
+        <%} else {%>
+            <td>
+                즐겨찾기한 게시판이 없습니다!
+            </td>        
+        <%}%>  
     </table>
 </body>
 </html>
