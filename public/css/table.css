@@ -10,7 +10,14 @@
     border: none;
     background-color: white;
     font-weight: bold;
+    font-size: 15px;
     color: #052c11;
+    width: 300px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
 }
 .title :hover {
     color: #1CB94E;
@@ -19,11 +26,18 @@
 .sub-content{
     margin-left: 300px;
     text-align: right;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
     margin-bottom: 3px;
 }
 
 .content{
     font-size: 13px;
+}
+
+.comment{
+    font-size: 10px;
+    font-weight: bold;
+    color: blue;
+    margin-top: 7px;
 }

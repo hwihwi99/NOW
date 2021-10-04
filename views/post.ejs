@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/nav.css">
-    <link rel="stylesheet" href="./css/table.css">
+    <link rel="stylesheet" href="../css/table.css">
 </head>
 <body>
     <nav>
@@ -29,44 +29,48 @@
         </div>
     </nav>
 
-    <hr>
+
 
     <form action="/bookmark" method="POST" class="bookmark">
         <input type="submit" value="즐겨찾기">
     </form>
 
-    
-    <hr>
 
-    <table>
+    <table width="500px">
         <tr>      
             <th class="table-header">게시글 제목</th>
-            <th class="table-header">댓글수</th>
             <th class="table-header">작성자</th>
             <th class="table-header">작성 시간</th>
         </tr>
         <%var j = 0%>
-        <tr>
+
+        <%if(post.length>0) {%>
+            <tr>
+                <td>
+                    <%for(var i = 0; i< post.length; i++) {%>
+                        <tr>                
+                            <td>
+                                <form action="/post/<%= post[i].id%>" method="post" style="display: flex;">
+                                    <input type="submit" name="post_title" id="post_title" class="title" value="<%= post[i].title %>">
+                                    <% if(j< comment_num.length && post[i].id == comment_num[j].post_id) { %>
+                                        <p class="comment">[<%= comment_num[j].count %>]</p>
+                                        <%j++ %>
+                                    <% } else { %>
+                                        <p class="content"></p>
+                                    <% }; %>
+                                </form>
+                            </td> 
+                            <td><p class="content"><%= post[i].nickname %></p></td>
+                            <td><p class="content"><%= post[i].post_time %></p></td>
+                        </tr>
+                    <% }; %> 
+                </td>              
+            </tr>       
+        <%} else {%>
             <td>
-                <%for(var i = 0; i< post.length; i++) {%>
-                    <tr>                
-                        <td>
-                            <form action="/post/<%= post[i].id%>" method="post">
-                                <input type="submit" name="post_title" id="post_title" value="<%= post[i].title %>">
-                            </form>
-                        </td>
-                        <% if(j< comment_num.length && post[i].id == comment_num[j].post_id) { %>
-                            <td><%= comment_num[j].count %></td>
-                            <%j++ %>
-                        <% } else { %>
-                            <td>00</td>
-                        <% }; %> 
-                        <td><%= post[i].nickname %></td>
-                        <td><%= post[i].post_time %></td>
-                    </tr>
-                <% }; %>   
-            </td>
-        </tr>
+                즐겨찾기한 게시판이 없습니다!
+            </td>        
+        <%}%>
     </table>
 </body>
 </html>
