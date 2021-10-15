@@ -2,7 +2,6 @@
     margin: 0;
 }
 
-
 nav > a > img{
     width: 280px;
 }
@@ -34,7 +33,7 @@ nav{
 }
 
 .search >input{
-    width: calc(80% - 22px);
+    width: calc(20%);
     height:25px;
     outline: none;
     border: 1px solid #ddd;
@@ -56,7 +55,36 @@ nav{
 }
 
 .back{
-    color: black;
+    color: white;
     margin-top: 0px;
     font-size: 12px;
+    text-decoration: none;
+    background-color: #0275d8;
+    padding: 7.5px 15px 6px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 900;
+    margin-left: 10px;
+}
+.back:hover{
+    opacity: 0.87;
+}
+
+.bookmark > input{
+    color: white;
+    margin-top: 0px;
+    font-size: 12px;
+    text-decoration: none;
+    background-color: #0275d8;
+    padding: 7px 15px 6px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 900;
+    border: none;
+}
+
+.bookmark > input:hover{
+    opacity: 0.87;
 }

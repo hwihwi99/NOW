@@ -17,25 +17,25 @@
             <p class="nav-intro">
                 <a href="/profile"><%=nickname%>님</a> 이곳은 <%=board_title%>에 적힌 게시글을 볼 수 있는 곳입니다.
             </p>
-            <div class="text_menu">
-                <a href="/newpost"><h1>게시글 추가</h1></a>
-                <form action="/postSearch" method="post" class="search">
-                    <input type="text" name="post_search" id="post_search" placeholder="게시글 검색">
-                </form>
-            </div>
-            <a href="/board" class="back">
-                목록으로 돌아가기
-           </a>
+            <form action="/postSearch" method="post" class="search">
+                <input type="text" name="post_search" id="post_search" placeholder="게시글 검색">
+            </form>
+            
         </div>
     </nav>
-
-
-
-    <form action="/bookmark" method="POST" class="bookmark">
-        <input type="submit" value="즐겨찾기">
-    </form>
-
-
+    <div class="list_menu" style="display: flex; margin-left: 20px; margin-bottom: 20px;">
+        <form action="/bookmark" method="POST" class="bookmark">
+            <input type="submit" value="즐겨찾기">
+        </form>
+        <a href="/board" class="back">
+            뒤로가기
+        </a>
+        <a href="/newpost" class="back" style="background-color: #5cb85c;">
+            게시글 추가
+        </a>
+        
+    </div>
+   
     <table width="500px">
         <tr>      
             <th class="table-header">게시글 제목</th>

@@ -5,20 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/table.css">
 </head>
 <body>
-     <a href="/home">
-          <img src="../img/now_logo.png" alt="로고 사진 입니다.">
-     </a>  
-     <a href="/post">
-          게시글 목록으로 돌아가기
-     </a>
-
-     
-     <hr>
-     현재 사용자 이름 : <%=nickname%>
-     <br>
-     현재 게시판 : <%=board_title%>
+     <nav>
+          <a href="/home">
+               <img src="../img/now_logo.png" alt="로고 사진 입니다.">
+          </a> 
+          <div class="menu">
+               <div class="text_menu">
+                    <a href="/post">게시글 목록으로 돌아가기</a>
+               </div>
+          </div>
+     </nav> 
      <hr>
      제목 :  <%=post[0].title%>
      <br>
