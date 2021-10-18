@@ -34,7 +34,7 @@
             <tr>
                 <td>
                     <%for(var i = 0; i < bookmark.length; i++) {%>
-                        <form action="/board/<%= bookmark[i].id%>" method="post">
+                        <form action="/board/boardname=<%= bookmark[i].id%>" method="post">
                             <input style="padding-top: 5px; padding-bottom: 5px;" type="submit" name="board_title" id="board_title" class="title" value="<%= bookmark[i].title %>">
                         </form>      
                         <hr class="line">

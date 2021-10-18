@@ -6,7 +6,7 @@ var moment = require('moment')
 
 var crypto = require('crypto')
 var mysql = require('mysql')
-const { reset } = require('nodemon')
+
 var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
@@ -41,7 +41,7 @@ app.get('/login',(req,res)=>{
 app.post('/login',(req,res)=>{
     nickname = req.body.login_nickname
     var inputpw = req.body.login_pw
-    var query = connection.query('select * from now_user where nickname = ?',[nickname],(error,row)=>{
+    connection.query('select * from now_user where nickname = ?',[nickname],(error,row)=>{
         if(error){
             throw error;
         }
@@ -50,7 +50,7 @@ app.post('/login',(req,res)=>{
             var pwcheck = crypto.createHash("sha512").update(inputpw+row[0].salt).digest("hex")
         
             if(pwcheck == row[0].pw){
-                res.redirect('/home')
+                res.redirect('/home/username='+nickname);
             }else{
                 // 비밀번호가 틀리다면
                 res.send("<script>alert('비밀번호를 다시 확인해주세요');location.href='/login';</script>")
@@ -79,7 +79,7 @@ app.post('/join',(req,res)=>{
     var hashpw = crypto.createHash("sha512").update(pw+salt).digest("hex")
 
     // 아이디 중복 확인
-    var query = connection.query('select * from now_user where nickname = ?',[nickname],(error,row)=>{
+    connection.query('select * from now_user where nickname = ?',[nickname],(error,row)=>{
         if(error){
             throw error;
         }
@@ -131,7 +131,7 @@ app.get('/board',(req,res)=>{
 
 var board_title
 
-app.get('/board/:id',(req,res)=>{
+app.get('/board/boardname=:id',(req,res)=>{
     connection.query('select * from now_post where board_title = ? order by post_time desc',[board_title],(err,row)=>{
         connection.query('select c.post_id, count(*) as count from now_comment as c join now_post as p on c.post_id = p.id where board_title = ? group by c.post_id order by post_time desc',[board_title],(errs,result)=>{
             res.render('post.ejs',{nickname:nickname,board_title:board_title,post:row,comment_num:result})
@@ -139,9 +139,9 @@ app.get('/board/:id',(req,res)=>{
     })
 })
 
-app.post('/board/:id',(req,res)=>{
+app.post('/board/boardname=:id',(req,res)=>{
     board_title = req.body.board_title;
-    res.redirect('/board/'+board_title);
+    res.redirect('/board/boardname='+board_title);
 })
 
 //////////////////////////////////////////게시판 추가하기/////////////////////////////////////////////////////
